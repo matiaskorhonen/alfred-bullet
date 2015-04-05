@@ -12,15 +12,27 @@ Just install the latest `.alfredworkflow` file from the [GitHub releases][releas
 
 ## Usage
 
-![AlfredBullet in action](images/AlfredBullet.gif)
+1. Install the workflow (see above)
 
-There is only one keyword/command:
+2. Get your API token from your [Pushbullet account page][account].
 
-```
-push TEXT
-```
+3. Set it with the `set-push-token` keyword:
 
-Where `TEXT` can be a URL or any arbitrary text.
+  ![set-push-token](images/set-token.png)
+
+4. Enjoy pushing yo your devices:
+
+  ![AlfredBullet in action](images/AlfredBullet.gif)
+
+  There is only one keyword/command:
+
+  ```
+  push TEXT
+  ```
+
+  Where `TEXT` can be a URL or any arbitrary text.
+
+[account]: https://www.pushbullet.com/account
 
 ## Build from source
 

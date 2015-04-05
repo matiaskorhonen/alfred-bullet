@@ -4,10 +4,19 @@
 <dict>
 	<key>bundleid</key>
 	<string>fi.matiaskorhonen.alfred-bullet</string>
-	<key>category</key>
-	<string>Tools</string>
 	<key>connections</key>
 	<dict>
+		<key>4A6EE525-8677-4382-952E-44A59D509D80</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>12BB6665-4971-405D-9D96-B295FEDDBCB8</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+		</array>
 		<key>603050AB-4727-4F86-A963-ABCEE1110DA2</key>
 		<array>
 			<dict>
@@ -84,11 +93,59 @@
 			<key>version</key>
 			<integer>0</integer>
 		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>escaping</key>
+				<integer>127</integer>
+				<key>script</key>
+				<string>./alfred-bullet -action settoken -token {query}</string>
+				<key>type</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>12BB6665-4971-405D-9D96-B295FEDDBCB8</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>0</integer>
+				<key>keyword</key>
+				<string>set-push-token</string>
+				<key>subtext</key>
+				<string>Get it at https://www.pushbullet.com/account</string>
+				<key>text</key>
+				<string>Save your Pushbullet token</string>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>4A6EE525-8677-4382-952E-44A59D509D80</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
 	</array>
 	<key>readme</key>
 	<string>README_INSERTION</string>
 	<key>uidata</key>
 	<dict>
+		<key>12BB6665-4971-405D-9D96-B295FEDDBCB8</key>
+		<dict>
+			<key>ypos</key>
+			<real>130</real>
+		</dict>
+		<key>4A6EE525-8677-4382-952E-44A59D509D80</key>
+		<dict>
+			<key>ypos</key>
+			<real>130</real>
+		</dict>
 		<key>603050AB-4727-4F86-A963-ABCEE1110DA2</key>
 		<dict>
 			<key>ypos</key>

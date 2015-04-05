@@ -4,6 +4,8 @@ import (
 	"encoding/hex"
 	"encoding/json"
 	"flag"
+	"io/ioutil"
+	"os"
 	"regexp"
 	"strings"
 
@@ -18,18 +20,37 @@ type pushArgs struct {
 	Body  string
 }
 
+type pushSettings struct {
+	Token string
+}
+
 var action string
 var query string
 var pbToken string
+var settings *pushSettings
 var pb *pushbullet.Pushbullet
+var workflowDataPath string
+var settingsPath string
 
 func init() {
+	flag.StringVar(&pbToken, "token", "", "Set your Pushbullet API token")
 	flag.StringVar(&action, "action", "list", "Which action to take (list/push)")
 	flag.Parse()
 
 	query = strings.Join(flag.Args(), " ")
 
-	pbToken = "idezkme6sQ73laTbv9ENSxleLUxnbJYO"
+	workflowDataPath = os.Getenv("alfred_workflow_data")
+
+	if workflowDataPath == "" {
+		panic("alfred_workflow_data not set")
+	}
+
+	settingsPath = workflowDataPath + "/settings"
+
+	if pbToken == "" {
+		loadSettings()
+	}
+
 	pb = pushbullet.New(pbToken)
 }
 
@@ -39,6 +60,8 @@ func main() {
 		list()
 	case "push":
 		push()
+	case "settoken":
+		setToken()
 	default:
 		panic("Unknown action")
 	}
@@ -50,22 +73,12 @@ func list() {
 		panic(err)
 	}
 
-	// optimize query terms for fuzzy matching
-	// alfred.InitTerms(queryTerms)
-
-	// create a new alfred workflow response
 	response := alfred.NewResponse()
-	// repos := getRepos()
 
 	ipadRegexp, _ := regexp.Compile("(?i:iPad)")
 	macbookRegexp, _ := regexp.Compile("(?i:MacBook)")
 
 	for _, device := range devices {
-		// check if the repo name fuzzy matches the query terms
-		// if !alfred.MatchesTerms(queryTerms, repo.Name) {
-		// 	continue
-		// }
-
 		var deviceIcon string
 
 		switch device.Type {
@@ -133,7 +146,10 @@ func push() {
 	}
 
 	args := &pushArgs{}
-	json.Unmarshal([]byte(jsonArgs), &args)
+	err = json.Unmarshal([]byte(jsonArgs), &args)
+	if err != nil {
+		panic(err)
+	}
 
 	urlRegexp, _ := regexp.Compile("(?i:https?://)")
 
@@ -157,4 +173,62 @@ func push() {
 	if err != nil {
 		panic(err)
 	}
+}
+
+func setToken() {
+	settings = &pushSettings{
+		Token: pbToken,
+	}
+
+	json, err := json.Marshal(settings)
+	if err != nil {
+		panic(err)
+	}
+
+	hexSettings := hex.EncodeToString(json)
+
+	err = os.MkdirAll(workflowDataPath, 0744)
+	if err != nil {
+		panic(err)
+	}
+
+	f, err := os.Create(settingsPath)
+	if err != nil {
+		panic(err)
+	}
+
+	defer f.Close()
+
+	f.Write([]byte(hexSettings))
+
+	f.Sync()
+}
+
+func loadSettings() {
+	if _, err := os.Stat(settingsPath); os.IsNotExist(err) {
+		response := alfred.NewResponse()
+		response.AddItem(&alfred.AlfredResponseItem{
+			Valid:    false,
+			Uid:      "SettingsNotFound",
+			Title:    "API token not set",
+			Subtitle: "Use 'set-push-token' to set the API token",
+			Icon:     "icons/ionicons/alert-circled.png",
+		})
+		response.Print()
+		os.Exit(1)
+	}
+
+	hexData, err := ioutil.ReadFile(settingsPath)
+
+	jsonData, err := hex.DecodeString(string(hexData))
+	if err != nil {
+		panic(err)
+	}
+
+	err = json.Unmarshal([]byte(jsonData), &settings)
+	if err != nil {
+		panic(err)
+	}
+
+	pbToken = settings.Token
 }
