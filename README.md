@@ -59,4 +59,6 @@ However, if you do want to build it, this is how:
 
 ## License and Copyright
 
-Copyright © 2015 Matias Korhonen. Licensed under the MIT License, see the [LICENSE.txt](LICENSE.txt) file for details.
+Copyright © 2015 Matias Korhonen.
+
+Licensed under the MIT License, see the [LICENSE.txt](LICENSE.txt) file for details.
