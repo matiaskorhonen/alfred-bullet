@@ -1,0 +1,14 @@
+{
+	"ImportPath": "github.com/matiaskorhonen/alfred-bullet",
+	"GoVersion": "go1.4.2",
+	"Deps": [
+		{
+			"ImportPath": "github.com/mitsuse/pushbullet-go",
+			"Rev": "5a1d8dd906e1c219bc93570340a0c76239a99dba"
+		},
+		{
+			"ImportPath": "github.com/pascalw/go-alfred",
+			"Rev": "a9ebbad5f6106018dc194ee50c71f73c71e618fc"
+		}
+	]
+}
