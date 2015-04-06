@@ -20,7 +20,7 @@ Just install the latest `.alfredworkflow` file from the [GitHub releases][releas
 
   ![set-push-token](images/set-token.png)
 
-4. Enjoy pushing yo your devices:
+4. Enjoy pushing to your devices:
 
   ![AlfredBullet in action](images/AlfredBullet.gif)
 
