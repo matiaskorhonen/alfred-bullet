@@ -97,7 +97,7 @@ func list() {
 		case "android":
 			deviceIcon = "icons/ionicons/social-android-outline.png"
 		case "pc", "windows":
-			deviceIcon = "icons/ionicons/social-windows-outline"
+			deviceIcon = "icons/ionicons/social-windows-outline.png"
 		case "opera":
 			deviceIcon = "icons/devicons/opera.png"
 		case "chrome":
