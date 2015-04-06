@@ -1,6 +1,6 @@
 # AlfredBullet
 
-An Alfred 2 Workflow for [Pushbullet](pb). Written in Go.
+An Alfred 2 Workflow for [Pushbullet][pb]. Written in Go.
 
 [pb]: https://www.pushbullet.com/
 
