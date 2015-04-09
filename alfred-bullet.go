@@ -11,6 +11,7 @@ import (
 
 	"github.com/mitsuse/pushbullet-go"
 	"github.com/mitsuse/pushbullet-go/requests"
+	"github.com/mitsuse/pushbullet-go/responses"
 	"github.com/pascalw/go-alfred"
 )
 
@@ -73,12 +74,20 @@ func list() {
 		panic(err)
 	}
 
+	var pushable []*responses.Device
+
+	for _, device := range devices {
+		if device.Pushable {
+			pushable = append(pushable, device)
+		}
+	}
+
 	response := alfred.NewResponse()
 
 	ipadRegexp, _ := regexp.Compile("(?i:iPad)")
 	macbookRegexp, _ := regexp.Compile("(?i:MacBook)")
 
-	for _, device := range devices {
+	for _, device := range pushable {
 		var deviceIcon string
 
 		switch device.Type {
