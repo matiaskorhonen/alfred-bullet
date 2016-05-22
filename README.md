@@ -51,9 +51,11 @@ However, if you do want to build it, this is how:
   cd $GOPATH/src/github.com/matiaskorhonen/alfred-bullet
   ```
 
-3. Make the Alfred extension with `make workflow`
+3. Run `go get` to fetch the dependencies
 
-4. Install the workflow from the `build` directory
+4. Make the Alfred extension with `make workflow`
+
+5. Install the workflow from the `build` directory
 
 [go-how]: http://golang.org/doc/code.html
 
